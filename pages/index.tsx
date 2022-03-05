@@ -12,6 +12,9 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <MainBanner />
+
+      {/* Posts */}
+
     </div>
   )
 }
