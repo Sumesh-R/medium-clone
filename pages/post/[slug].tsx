@@ -8,7 +8,6 @@ interface Props {
 }
 
 function Post({ post }: Props) {
-  console.log(post)
   return (
     <main>
       <Header />
@@ -23,10 +22,18 @@ function Post({ post }: Props) {
       <article className="mx-auto max-w-3xl p-5">
         <h1 className="mt-10 mb-3 text-3xl">{post.title}</h1>
         <h2 className="text-xl font-light text-gray-500">{post.description}</h2>
-        <div>
+        <div className="flex items-center space-x-2">
           {post.author.image && (
-            <img className="" src={urlFor(post.author.image).url()} alt="" />
+            <img
+              className="h-10 w-10 rounded-full"
+              src={urlFor(post.author.image).url()}
+              alt=""
+            />
           )}
+          <p className="text-sm font-extralight">
+            Blog post by <span className="text-green-600">{post.author.name}</span> -
+            published at {new Date(post._createdAt).toLocaleString()}
+          </p>
         </div>
       </article>
     </main>
@@ -86,6 +93,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       post,
     },
-    revalidate: 60,
+    revalidate: 6000,
   }
 }

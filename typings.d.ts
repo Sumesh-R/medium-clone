@@ -1,6 +1,7 @@
 export interface Post {
   _id: string
   author: Author
+  _createdAt: string
   description: string
   mainImage: Image
   slug: Slug

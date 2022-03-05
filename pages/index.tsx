@@ -1,3 +1,4 @@
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Header from '../components/Header'
 import MainBanner from '../components/MainBanner'
@@ -23,12 +24,11 @@ function Home({ posts }: Props) {
 
       {/* Posts */}
       <PostsComponent posts={posts} />
-      
     </div>
   )
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const query = `*[_type == "post"]{
     _id,
     title,
@@ -40,10 +40,12 @@ export const getServerSideProps = async () => {
   slug
   }`
   const posts = await sanityClient.fetch(query)
+
   return {
     props: {
       posts,
     },
+    revalidate: 6000,
   }
 }
 export default Home
