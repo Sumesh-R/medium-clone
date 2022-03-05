@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next'
 import Header from '../../components/Header'
 import { sanityClient, urlFor } from '../../sanity'
 import { Post } from '../../typings'
+import PortableText from "react-portable-text"
 
 interface Props {
   post: Post
@@ -34,6 +35,25 @@ function Post({ post }: Props) {
             Blog post by <span className="text-green-600">{post.author.name}</span> -
             published at {new Date(post._createdAt).toLocaleString()}
           </p>
+        </div>
+        <div className="mt-10">
+          <PortableText 
+            className=""
+            dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
+            projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!}
+            content={post.body}
+            serializers={{
+              h1: (props: any) => (
+                <h1 className='text-2xl font-bold my-5' {...props} />
+              ),
+              h3: (props: any) => (
+                <h1 className='text-xl font-bold my-3' {...props} />
+              ),
+              link: ({href, children}: any) => {
+                <a href={href} className="text-blue-500 hover:underline">{children}</a>
+              }
+            }}
+          />
         </div>
       </article>
     </main>
@@ -93,6 +113,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       post,
     },
-    revalidate: 6000,
+    revalidate: 6,
   }
 }
