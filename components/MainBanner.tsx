@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-function Header() {
+function MainBanner() {
   return (
     <div className="flex items-center justify-between border-y border-black bg-yellow-400 py-10 lg:py-0">
       <div className="space-y-5 px-10">
@@ -24,4 +24,4 @@ function Header() {
   )
 }
 
-export default Header
+export default MainBanner
