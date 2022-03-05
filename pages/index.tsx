@@ -1,8 +1,7 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
 import Header from '../components/Header'
 import MainBanner from '../components/MainBanner'
-import PostComponent from '../components/PostComponent'
+import PostsComponent from '../components/PostsComponent'
 import { sanityClient, urlFor } from '../sanity'
 import { Post } from '../typings'
 
@@ -23,11 +22,8 @@ function Home({ posts }: Props) {
       <MainBanner />
 
       {/* Posts */}
-      <div>
-        {posts.map((post, index) => (
-          <PostComponent key={index} post={post} />
-        ))}
-      </div>
+      <PostsComponent posts={posts} />
+      
     </div>
   )
 }
